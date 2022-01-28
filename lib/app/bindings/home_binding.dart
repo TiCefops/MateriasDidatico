@@ -1,0 +1,14 @@
+
+import 'package:cefops2/app/controller/home_controller.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/bindings_interface.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
+
+class HomeBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<HomeController>(() {
+      return HomeController();
+    });
+  }
+}
