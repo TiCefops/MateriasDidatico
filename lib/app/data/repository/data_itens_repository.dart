@@ -3,12 +3,14 @@ import 'dart:io';
 
 import 'package:cefops2/app/data/interface/data_itens_interface.dart';
 import 'package:cefops2/app/data/model/itens_model.dart';
+import 'package:cefops2/app/data/provider/data_itens_provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DataItensRepository extends IDataItens{
+  DataItensProvider provider= DataItensProvider();
   @override
-  Future<String> getCourses() {
-    // TODO: implement getCourses
-    throw UnimplementedError();
+  Future<QuerySnapshot> getCourses()async {
+  return await provider.getCourses();
   }
 
   @override

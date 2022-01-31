@@ -24,10 +24,10 @@ class AppPages {
     GetPage(
         name: Routes.PDFVIEW,
         page: () => const PdfViewPage(),
-        binding: PdfViewerBinding()),  GetPage(
+        binding: PdfViewerBinding()),
+    GetPage(
         name: Routes.MODULE,
-        page: () => const ModulePage(),
-        parameters: {},
+        page: () =>  ModulePage(),
         binding: PdfViewerBinding()),
 
   ];
