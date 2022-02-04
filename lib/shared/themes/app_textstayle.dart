@@ -20,9 +20,14 @@ class TextStyles {
 
   );
   static final TextStyle titleRegular = GoogleFonts.openSans(
-    fontSize: 26,
+    fontSize: 24,
     fontWeight: FontWeight.w600,
     color: AppColors.blue,
+
+  );static final TextStyle titleRegularWhite = GoogleFonts.openSans(
+    fontSize: 26,
+    fontWeight: FontWeight.w600,
+    color: Colors.white,
 
   );
 }

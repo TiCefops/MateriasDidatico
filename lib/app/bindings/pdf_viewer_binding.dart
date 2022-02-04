@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 class PdfViewerBinding implements Bindings{
   @override
   void dependencies() {
-Get.lazyPut<PdfViewerController>((){
+Get.lazyPut<PdfViewerControllerUi>((){
 
-  return PdfViewerController();
+  return PdfViewerControllerUi();
 });
   }
 

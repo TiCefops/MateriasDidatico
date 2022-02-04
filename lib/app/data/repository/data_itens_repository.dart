@@ -14,9 +14,8 @@ class DataItensRepository extends IDataItens{
   }
 
   @override
-  Future<String> getModules() {
-    // TODO: implement getModules
-    throw UnimplementedError();
+  Future<QuerySnapshot> getModules(String course) async{
+    return await provider.getModules(course);
   }
 
   @override
@@ -41,5 +40,10 @@ class DataItensRepository extends IDataItens{
   Future<String> putPdf(File file) {
     // TODO: implement putPdf
     throw UnimplementedError();
+  }
+
+  @override
+  Future<QuerySnapshot> getSubjects(String course,String moduleId) {
+   return provider.getSubjects(course, moduleId);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:cefops2/app/controller/home_controller.dart';
+import 'package:cefops2/app/controller/user_info_controller.dart';
 import 'package:cefops2/app/routes/app_routes.dart';
 import 'package:cefops2/shared/themes/app_textstayle.dart';
 import 'package:cefops2/shared/themes/theme.dart';
@@ -7,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomePage extends GetView<HomeController> {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +26,10 @@ class HomePage extends GetView<HomeController> {
         ),
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
+            double sizeForPc = constraints.maxWidth * 0.9;
+            if (constraints.maxWidth > 600) {
+              sizeForPc = sizeForPc = constraints.maxWidth * 0.5;
+            }
             return Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -33,11 +38,13 @@ class HomePage extends GetView<HomeController> {
                 SizedBox(
                   height: constraints.maxHeight * 0.09,
                 ),
-                SizedBox(
-                  width: constraints.maxWidth * 0.7,
-                  child: Image.asset(
-                    "assets/image/logo.png",
-                    width: constraints.maxWidth,
+                Expanded(
+                  child: SizedBox(
+                    width: constraints.maxWidth * 0.7,
+                    child: Image.asset(
+                      "assets/image/logo.png",
+                      width: constraints.maxWidth,
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -45,18 +52,18 @@ class HomePage extends GetView<HomeController> {
                 ),
                 Expanded(
                   child: SizedBox(
-                    height: constraints.maxHeight * 0.02,
+                    height: constraints.maxHeight,
                     child: Text(
                       "MATERIAL \n DIDÁTICO",
                       style: TextStyle(
                           fontFamily: 'pro',
                           color: Colors.white,
-                          fontSize: constraints.maxWidth * 0.1),
+                          fontSize: sizeForPc * 0.06),
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: constraints.maxHeight*0.08 ,
+                  height: constraints.maxHeight * 0.09,
                   child: Text(
                     "Selecione Seu Curso",
                     style: TextStyles.titleWithe,
@@ -66,32 +73,45 @@ class HomePage extends GetView<HomeController> {
                 Expanded(
                   flex: 2,
                   child: SizedBox(
-                    width: constraints.maxWidth * 0.9,
+                    width: sizeForPc,
                     height: constraints.maxHeight,
                     child: FutureBuilder<QuerySnapshot>(
                         future: controller.getCourses(),
                         builder: (BuildContext context,
                             AsyncSnapshot<QuerySnapshot> snapshot) {
-                          if (!snapshot.hasData) {
-                            return const Center(
-                              child: CircularProgressIndicator(
-                                color: Colors.white,
-                                backgroundColor: AppColors.orange,
-                              ),
-                            );
-                          }
-                          return ListView.separated(
-                            itemCount: snapshot.data!.docs.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return course(snapshot.data?.docs[index]["nome"],
-                                  snapshot.data?.docs[index]["id"]);
-                            },
-                            separatorBuilder:
-                                (BuildContext context, int index) {
-                              return SizedBox(
-                                height: constraints.maxHeight * 0.01,
+                          if (snapshot.hasData) {
+                            if (snapshot.data?.docs[0]["ativo"] == false) {
+                              return Center(
+                                child: Text(
+                                  "Aguardando Liberação",
+                                  style: TextStyles.titleRegularWhite,
+                                ),
                               );
-                            },
+                            } else {
+                              return ListView.separated(
+                                itemCount: snapshot.data!.docs.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  Map<String, String> data = {
+                                    "nome": snapshot.data?.docs[index]["nome"],
+                                    "id": snapshot.data?.docs[index]["id"],
+                                  };
+                                  return course(
+                                      snapshot.data?.docs[index]["nome"], data);
+                                },
+                                separatorBuilder:
+                                    (BuildContext context, int index) {
+                                  return SizedBox(
+                                    height: constraints.maxHeight * 0.01,
+                                  );
+                                },
+                              );
+                            }
+                          }
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              backgroundColor: AppColors.orange,
+                            ),
                           );
                         }),
                   ),
@@ -116,15 +136,18 @@ class HomePage extends GetView<HomeController> {
   }
 }
 
-Widget course(String title, String id) {
+Widget course(String title, Map<String, String> data) {
   return Container(
     height: Get.height * 0.08,
     decoration: BoxDecoration(
         color: AppColors.orange,
         borderRadius: BorderRadius.circular(5),
         border: Border.all(color: Colors.white, width: 2)),
-    child: GestureDetector(
-      onTap: () => Get.toNamed(Routes.MODULE, arguments: id),
+    child: InkWell(
+      onTap: () => Get.toNamed(
+        Routes.MODULE,
+        parameters: data,
+      ),
       child: Center(
         child: Text(
           title,

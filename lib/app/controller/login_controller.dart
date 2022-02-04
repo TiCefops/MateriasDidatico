@@ -1,5 +1,9 @@
+
 import 'package:get/get.dart';
 
-class LoginController extends GetxController{
+class LoginController extends GetxController {
+
+  RxBool loadingPage = false.obs;
+  RxBool showPassord = false.obs;
 
 }

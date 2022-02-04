@@ -1,25 +1,25 @@
-
 import 'dart:io';
 
 import 'package:cefops2/app/data/interface/data_itens_interface.dart';
 import 'package:cefops2/app/data/model/itens_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class DataItensProvider implements IDataItens{
-
-
+class DataItensProvider implements IDataItens {
   @override
-  Future<QuerySnapshot> getCourses() async{
-    QuerySnapshot snapshot=  await FirebaseFirestore.instance.
-    collection("cursos").get();
-
+  Future<QuerySnapshot> getCourses() async {
+    QuerySnapshot snapshot =
+        await FirebaseFirestore.instance.collection("cursos").get();
     return snapshot;
   }
 
   @override
-  Future<String> getModules() {
-    // TODO: implement getModules
-    throw UnimplementedError();
+  Future<QuerySnapshot> getModules(String course) async {
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection("modulos")
+        .doc(course)
+        .collection("modulos")
+        .get();
+    return snapshot;
   }
 
   @override
@@ -45,5 +45,17 @@ class DataItensProvider implements IDataItens{
     // TODO: implement putPdf
     throw UnimplementedError();
   }
-  
+
+  @override
+  Future<QuerySnapshot> getSubjects(
+      String course, String moduleId) async {
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection("modulos")
+        .doc(course)
+        .collection("modulos")
+        .doc(moduleId)
+        .collection("disciplinas")
+        .get();
+    return snapshot;
+  }
 }
