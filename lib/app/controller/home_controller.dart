@@ -22,12 +22,19 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
-  RxString userCourseId="".obs;
+  RxList userCourseId=[].obs;
 
   Future<String> getCourseID()async{
     String uid=user?.uid??"";
+
     DocumentSnapshot data=await _dataUserInfo.getUserInfo(uid);
-    return "oi";
+    List<dynamic>  courseList=data.get("cursos");
+    courseList.forEach((element) {
+      userCourseId.add(element);
+
+    });
+
+    return "ok";
 
   }
 

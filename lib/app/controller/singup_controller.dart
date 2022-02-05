@@ -16,6 +16,8 @@ class SingupController extends GetxController {
 
   Future<void> singup() async {
     User? user = FirebaseAuth.instance.currentUser;
+    if( user?.emailVerified == false){
+      user?.sendEmailVerification();}
   String uid=user!.uid;
       await repository.singUp(name.value, cpf.value, email.value, uid);
 

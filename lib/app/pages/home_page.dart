@@ -134,27 +134,36 @@ class HomePage extends GetView<HomeController> {
       ),
     );
   }
-}
 
-Widget course(String title, Map<String, String> data) {
-  return Container(
-    height: Get.height * 0.08,
-    decoration: BoxDecoration(
-        color: AppColors.orange,
-        borderRadius: BorderRadius.circular(5),
-        border: Border.all(color: Colors.white, width: 2)),
-    child: InkWell(
-      onTap: () => Get.toNamed(
-        Routes.MODULE,
-        parameters: data,
-      ),
-      child: Center(
-        child: Text(
-          title,
-          style: TextStyles.titleRegular,
-          textAlign: TextAlign.center,
+  Widget course(String title, Map<String, String> data) {
+    return Container(
+      height: Get.height * 0.08,
+      decoration: BoxDecoration(
+          color: AppColors.orange,
+          borderRadius: BorderRadius.circular(5),
+          border: Border.all(color: Colors.white, width: 2)),
+      child: InkWell(
+        onTap: controller.userCourseId
+                .where((item) => item["cursoId"] == data["id"])
+                .isNotEmpty
+            ? () {
+                Get.toNamed(
+                  Routes.MODULE,
+                  parameters: data,
+                );
+              }
+            : () {
+                Get.snackbar("Aviso", "Você não faz parte deste curso",
+                    snackPosition: SnackPosition.BOTTOM);
+              },
+        child: Center(
+          child: Text(
+            title,
+            style: TextStyles.titleRegular,
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }

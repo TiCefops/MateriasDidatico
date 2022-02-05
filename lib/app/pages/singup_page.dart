@@ -39,36 +39,35 @@ class SingupPage extends GetView<SingupController> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SizedBox(
-                  height: Get.height * 0.08,
+                  height: constraints.maxHeight * 0.08,
                 ),
                 Center(
                   child: SizedBox(
-                    width: Get.width * 0.3,
-                    height: Get.height * 0.15,
+                    width: constraints.maxWidth * 0.3,
+                    height:constraints.maxHeight * 0.15,
                     child: Image.asset(
                       "assets/image/brasao.png",
                     ),
                   ),
                 ),
-                Expanded(
-                  child: SizedBox(
-                    width: widethForPC,
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          FormLoginWidget("Nome Completo", Icons.person,
-                              nomeController, false),
-                          FormLoginWidget(
-                              "CPF", Icons.person, cpfController, false),
-                          FormLoginWidget(
-                              "E-mail", Icons.person, emailController, false),
-                          FormLoginWidget(
-                              "Senha", Icons.lock, passowrdController, true),
-                          FormLoginWidget("Repita sua Senha", Icons.lock,
-                              passowrd2Controller, true),
-                        ],
-                      ),
+                SizedBox(
+                  width: widethForPC,
+                  height: constraints.maxHeight,
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        FormLoginWidget("Nome Completo", Icons.person,
+                            nomeController, false),
+                        FormLoginWidget(
+                            "CPF", Icons.person, cpfController, false),
+                        FormLoginWidget(
+                            "E-mail", Icons.person, emailController, false),
+                        FormLoginWidget(
+                            "Senha", Icons.lock, passowrdController, true),
+                        FormLoginWidget("Repita sua Senha", Icons.lock,
+                            passowrd2Controller, true),
+                      ],
                     ),
                   ),
                 ),
@@ -88,13 +87,13 @@ class SingupPage extends GetView<SingupController> {
                               controller.email.value=emailController.text;
 
 
-
                               if (_formKey.currentState!.validate()) {
                                 controller.loadingPage.value = true;
 
                                 await AuthenticationHelper()
                                     .signUp(email: email, password: passowrd)
                                     .then((result) async {
+
                                   if (result == null) {
                                     await AuthenticationHelper().
                                     signIn(email: email, password: passowrd).

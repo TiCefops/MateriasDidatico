@@ -9,7 +9,6 @@ class UserDataInfoProvider implements IUserDataInfo{
   Future<DocumentSnapshot> getUserInfo(String uid) async{
     DocumentSnapshot snapshot =
         await FirebaseFirestore.instance.collection("users").doc(uid).get();
-        var test=snapshot.data();
     return snapshot;
   }
 }
