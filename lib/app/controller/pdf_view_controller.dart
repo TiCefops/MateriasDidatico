@@ -27,19 +27,15 @@ class PdfViewerControllerUi extends GetxController{
 
   Future<DocumentSnapshot> getUserInfo() async {
     String uid = user?.uid ?? "";
+
     DocumentSnapshot snapshot =
     await _repository.getUserInfo(uid);
     var data = snapshot.data();
-
     UserInfoModel userInfoModel = UserInfoModel.fromJson(data);
     userName.value = userInfoModel.nome!;
     userCpf.value = userInfoModel.cpf!;
     return snapshot;
   }
 
-  void setCpf(){
-
-
-  }
 
 }
