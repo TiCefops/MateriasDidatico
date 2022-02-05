@@ -59,12 +59,16 @@ class PdfViewPage extends GetView<PdfViewerControllerUi> {
             Center(
               child: RotationTransition(
                 turns: const AlwaysStoppedAnimation(19 / 360),
-                child: Text(
-                  controller.userCpf.value,
-                  style: TextStyle(
-                    fontSize: Get.width*0.14,
-                    color: Colors.black.withOpacity(0.5),
-                  ),
+                child: Obx(
+                   () {
+                    return Text(
+                      controller.userCpf.value,
+                      style: TextStyle(
+                        fontSize: Get.width*0.10,
+                        color: Colors.black.withOpacity(0.5),
+                      ),
+                    );
+                  }
                 ),
               ),
             ),
