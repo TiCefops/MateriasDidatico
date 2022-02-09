@@ -1,11 +1,9 @@
 import 'package:cefops2/app/controller/login_controller.dart';
-import 'package:cefops2/app/controller/user_info_controller.dart';
 import 'package:cefops2/app/routes/app_routes.dart';
 import 'package:cefops2/app/widgets/form_login_widget.dart';
 import 'package:cefops2/shared/auth/firebase_auth.dart';
 import 'package:cefops2/shared/themes/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends GetView<LoginController> {
@@ -56,12 +54,18 @@ class LoginPage extends GetView<LoginController> {
                             "Senha", Icons.lock, passowrdController, true),
                         Row(
                           children: [
-                            Expanded(child: SizedBox(width: constraints.maxWidth,)),
+                            Expanded(
+                                child: SizedBox(
+                              width: constraints.maxWidth,
+                            )),
                             TextButton(
-                              onPressed: () {Get.toNamed(Routes.SINGUP);},
-                              child: const Text("Cadastrar",style: TextStyle(
-                                color: Colors.white
-                              ),),
+                              onPressed: () {
+                                Get.toNamed(Routes.SINGUP);
+                              },
+                              child: const Text(
+                                "Cadastrar",
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           ],
                         ),
@@ -89,7 +93,9 @@ class LoginPage extends GetView<LoginController> {
                                   Get.offAndToNamed(Routes.HOME);
                                 } else {
                                   controller.loadingPage.value = false;
-                                  Get.snackbar("Falha na Autenticação", result);
+                                  controller.setErrorMessagerForSnack(result);
+                                  Get.snackbar("Falha na Autenticação",
+                                      controller.errorMessagerForSnack.value);
                                 }
                               });
                               controller.loadingPage.value = false;

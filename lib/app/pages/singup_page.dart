@@ -10,6 +10,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 
+
+
 class SingupPage extends GetView<SingupController> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passowrdController = TextEditingController();
@@ -100,15 +102,15 @@ class SingupPage extends GetView<SingupController> {
                                 await AuthenticationHelper().
                                 signIn(email: email, password: passowrd).
                                 then((value) async => await controller.singup(
-                                ));
+                                ),);
 
                                 controller.loadingPage.value = false;
 
                                 Get.offAndToNamed(Routes.HOME);
                               } else {
                                 controller.loadingPage.value = false;
-
-                                Get.snackbar("Falha no Cadastro", result);
+                                controller.setErrorMessagerForSnack(result);
+                                Get.snackbar("Falha no Cadastro", controller.errorMessagerForSnack.value);
                               }
                             });
                             controller.loadingPage.value = false;

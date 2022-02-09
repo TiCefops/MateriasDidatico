@@ -1,6 +1,6 @@
-import 'dart:math';
 
 import 'package:cefops2/app/data/repository/singup_repository.dart';
+import 'package:cefops2/app/erroHandler/auth_handdler.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
@@ -13,7 +13,11 @@ class SingupController extends GetxController {
   RxString name = "".obs;
   RxString cpf = "".obs;
   RxString email = "".obs;
+  RxString errorMessagerForSnack="".obs;
 
+  setErrorMessagerForSnack( String error){
+    errorMessagerForSnack.value=AuthHanddler().errorFilter(error);
+  }
   Future<void> singup() async {
     User? user = FirebaseAuth.instance.currentUser;
     if( user?.emailVerified == false){
