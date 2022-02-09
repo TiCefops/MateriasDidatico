@@ -1,7 +1,5 @@
-import 'package:cefops2/app/controller/home_controller.dart';
-import 'package:cefops2/app/controller/login_controller.dart';
+
 import 'package:cefops2/app/controller/pdf_view_controller.dart';
-import 'package:cefops2/app/controller/user_info_controller.dart';
 import 'package:cefops2/shared/themes/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
@@ -10,13 +8,19 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class PdfViewPage extends GetView<PdfViewerControllerUi> {
   final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
+  final PdfViewerController _pdfViewerController = PdfViewerController();
+
+
+
   final data = Get.parameters;
 
   PdfViewPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-   if(!GetPlatform.isWeb){
+
+
+    if(!GetPlatform.isWeb){
      disableCapture();
    }
     String pdf = data["linkPdf"] ??
@@ -36,16 +40,19 @@ class PdfViewPage extends GetView<PdfViewerControllerUi> {
                 _pdfViewerKey.currentState?.openBookmarkView();
               },
             ),
-            IconButton(
+
+            GetPlatform.isWeb? IconButton(
               icon: const Icon(
-                Icons.arrow_circle_down,
+                Icons.zoom_in,
                 color: Colors.white,
-                semanticLabel: 'Baixar',
+                semanticLabel: '+ zoom',
               ),
               onPressed: () {
-                _pdfViewerKey.currentState?.openBookmarkView();
+                _pdfViewerController.zoomLevel=3.0;
+                _pdfViewerController.nextPage();
+
               },
-            ),
+            ):Container(),
           ],
         ),
         body: SafeArea(
@@ -65,7 +72,7 @@ class PdfViewPage extends GetView<PdfViewerControllerUi> {
                       controller.userCpf.value,
                       style: TextStyle(
                         fontSize: Get.width*0.10,
-                        color: Colors.black.withOpacity(0.5),
+                        color: Colors.black.withOpacity(0.2),
                       ),
                     );
                   }
