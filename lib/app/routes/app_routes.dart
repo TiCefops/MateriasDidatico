@@ -8,4 +8,5 @@ abstract class Routes{
   static const SUBJECT = '/disciplinas';
   static const LOGIN = '/login';
   static const SINGUP = '/cadastrar';
+  static const PASSWORDRESET = '/esqueciasenha';
 }

@@ -41,9 +41,13 @@ dependencies:
   cloud_firestore: ^3.1.7
   firebase_auth: ^3.3.6
   firebase_storage: ^10.2.6
-  syncfusion_flutter_pdfviewer: ^19.4.48-beta
+  syncfusion_flutter_pdfviewer: ^19.4.53-beta
   flutter_launcher_icons: ^0.9.2
   flutter_windowmanager: ^0.2.0
+  firebase_performance: ^0.8.0+5
+  pdf_render: ^1.0.23
+  flutter_cache_manager: ^3.3.0
+
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +77,7 @@ flutter:
     - assets/icons/
     - assets/
     - assets/fonts/
+    - assets/image/brasaoAzul.png
 
 
   #   - images/a_dot_ham.jpeg

@@ -2,6 +2,7 @@ import 'package:cefops2/app/controller/login_controller.dart';
 import 'package:cefops2/app/routes/app_routes.dart';
 import 'package:cefops2/app/widgets/form_login_widget.dart';
 import 'package:cefops2/shared/auth/firebase_auth.dart';
+import 'package:cefops2/shared/themes/app_textstayle.dart';
 import 'package:cefops2/shared/themes/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,14 +19,19 @@ class LoginPage extends GetView<LoginController> {
     return Scaffold(
       backgroundColor: AppColors.blue,
       body: SingleChildScrollView(
-        child: SizedBox(
+        child: Container(
+          decoration: GetPlatform.isMobile
+              ? const BoxDecoration()
+              : const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/image/brasao.png"),
+                      opacity: 0.09,
+                      scale: 1,
+                      alignment: Alignment.centerRight),
+                ),
           height: Get.height,
           child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
-            double widethForPC = constraints.maxWidth;
-            if (constraints.maxWidth >= 600) {
-              widethForPC = constraints.maxWidth * 0.5;
-            }
             return Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -36,85 +42,19 @@ class LoginPage extends GetView<LoginController> {
                 Center(
                   child: SizedBox(
                     width: Get.width * 0.4,
-                    height: Get.height * 0.3,
-                    child: Image.asset(
-                      "assets/image/brasao.png",
-                    ),
+                    height: Get.height * 0.08,
                   ),
                 ),
-                SizedBox(
-                  width: widethForPC,
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        FormLoginWidget(
-                            "E-mail", Icons.person, emailController, false),
-                        FormLoginWidget(
-                            "Senha", Icons.lock, passowrdController, true),
-                        Row(
-                          children: [
-                            Expanded(
-                                child: SizedBox(
-                              width: constraints.maxWidth,
-                            )),
-                            TextButton(
-                              onPressed: () {
-                                Get.toNamed(Routes.SINGUP);
-                              },
-                              child: const Text(
-                                "Cadastrar",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      constraints.maxWidth >= 600 ? forPC() : forMobile()
+                    ],
                   ),
                 ),
-                Obx(() {
-                  return controller.loadingPage.value
-                      ? const CircularProgressIndicator(
-                          backgroundColor: Colors.white,
-                          color: AppColors.orange,
-                        )
-                      : ElevatedButton(
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                              controller.loadingPage.value = true;
-                              await AuthenticationHelper()
-                                  .signIn(
-                                      email: emailController.text,
-                                      password: passowrdController.text)
-                                  .then((result) {
-                                if (result == null) {
-                                  controller.loadingPage.value = false;
-                                  Get.offAndToNamed(Routes.HOME);
-                                } else {
-                                  controller.loadingPage.value = false;
-                                  controller.setErrorMessagerForSnack(result);
-                                  Get.snackbar("Falha na Autenticação",
-                                      controller.errorMessagerForSnack.value);
-                                }
-                              });
-                              controller.loadingPage.value = false;
-                            }
-                          },
-                          child: const Text(
-                            "Entrar",
-                            style: TextStyle(color: AppColors.blue),
-                          ),
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.white),
-                              padding: MaterialStateProperty.all(
-                                  EdgeInsets.all(Get.height * 0.02)),
-                              textStyle: MaterialStateProperty.all(TextStyle(
-                                fontSize: Get.height * 0.02,
-                              ))),
-                        );
-                }),
                 Expanded(
                     child: SizedBox(
                   height: Get.height,
@@ -123,6 +63,203 @@ class LoginPage extends GetView<LoginController> {
             );
           }),
         ),
+      ),
+    );
+  }
+
+  Widget forMobile() {
+    return Container(
+
+      width: Get.width * 0.9,
+      height: Get.height * 0.79,
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(15)),
+      child: Column(
+        children: [
+          SizedBox(
+            height: Get.height * 0.01,
+          ),
+          SizedBox(
+            width: Get.width * 0.55,
+            height: Get.height * 0.22,
+            child: Image.asset(
+              "assets/image/logov2.png",
+            ),
+          ),
+          Center(
+            child: Text(
+              "Login",
+              style: TextStyles.titleRegularBold,
+            ),
+          ),
+          FormLoginWidget(
+              "E-mail", Icons.person, emailController, false, AppColors.blue),
+          FormLoginWidget(
+              "Senha", Icons.lock, passowrdController, true, AppColors.blue),
+          Row(
+            children: [
+              Expanded(
+                  child: SizedBox(
+                width: Get.width,
+              )),
+              TextButton(
+                onPressed: () {
+                  Get.toNamed(Routes.PASSWORDRESET);
+                },
+                child: const Text(
+                  "Esqueci a senha",
+                  style: TextStyle(color: AppColors.blue),
+                ),
+              ),
+            ],
+          ),
+          Obx(
+            () {
+              return controller.loadingPage.value
+                  ? const CircularProgressIndicator(
+                      backgroundColor: Colors.white,
+                      color: AppColors.orange,
+                    )
+                  : ElevatedButton(
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          controller.loadingPage.value = true;
+                          await AuthenticationHelper()
+                              .signIn(
+                                  email: emailController.text,
+                                  password: passowrdController.text)
+                              .then((result) async {
+                            if (result == null) {
+                              controller.loadingPage.value = false;
+                              Get.offAndToNamed(Routes.HOME);
+                            } else {
+                              controller.loadingPage.value = false;
+                              controller.setErrorMessagerForSnack(result);
+                              Get.snackbar("Falha na Autenticação",
+                                  controller.errorMessagerForSnack.value);
+                            }
+                          });
+
+                          controller.loadingPage.value = false;
+                        }
+                      },
+                      child: const Text(
+                        "Entrar",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(AppColors.blue),
+                        padding: MaterialStateProperty.all(
+                            EdgeInsets.all(Get.height * 0.02)),
+                        textStyle: MaterialStateProperty.all(
+                          TextStyle(
+                            fontSize: Get.height * 0.02,
+                          ),
+                        ),
+                      ),
+                    );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget forPC() {
+    return Container(
+      width: Get.width * 0.45,
+      height: Get.height * 0.75,
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(15)),
+      child: Column(
+        children: [
+          SizedBox(
+            height: Get.height * 0.01,
+          ),
+          SizedBox(
+            width: Get.width * 0.4,
+            height: Get.height * 0.22,
+            child: Image.asset(
+              "assets/image/logov2.png",
+            ),
+          ),
+          Center(
+            child: Text(
+              "Login",
+              style: TextStyles.titleRegularBold,
+            ),
+          ),
+          FormLoginWidget(
+              "E-mail", Icons.person, emailController, false, AppColors.blue),
+          FormLoginWidget(
+              "Senha", Icons.lock, passowrdController, true, AppColors.blue),
+          Row(
+            children: [
+              Expanded(
+                  child: SizedBox(
+                width: Get.width,
+              )),
+              TextButton(
+                onPressed: () {
+                  Get.toNamed(Routes.PASSWORDRESET);
+                },
+                child: const Text(
+                  "Esqueci a senha",
+                  style: TextStyle(color: AppColors.blue),
+                ),
+              ),
+            ],
+          ),
+          Obx(
+            () {
+              return controller.loadingPage.value
+                  ? const CircularProgressIndicator(
+                      backgroundColor: Colors.white,
+                      color: AppColors.orange,
+                    )
+                  : ElevatedButton(
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          controller.loadingPage.value = true;
+                          await AuthenticationHelper()
+                              .signIn(
+                                  email: emailController.text,
+                                  password: passowrdController.text)
+                              .then((result) async {
+                            if (result == null) {
+                              controller.loadingPage.value = false;
+                              Get.offAndToNamed(Routes.HOME);
+                            } else {
+                              controller.loadingPage.value = false;
+                              controller.setErrorMessagerForSnack(result);
+                              Get.snackbar("Falha na Autenticação",
+                                  controller.errorMessagerForSnack.value);
+                            }
+                          });
+
+                          controller.loadingPage.value = false;
+                        }
+                      },
+                      child: const Text(
+                        "Entrar",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(AppColors.blue),
+                        padding: MaterialStateProperty.all(
+                            EdgeInsets.all(Get.height * 0.02)),
+                        textStyle: MaterialStateProperty.all(
+                          TextStyle(
+                            fontSize: Get.height * 0.02,
+                          ),
+                        ),
+                      ),
+                    );
+            },
+          ),
+        ],
       ),
     );
   }

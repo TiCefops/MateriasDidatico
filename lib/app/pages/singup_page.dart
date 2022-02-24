@@ -62,13 +62,13 @@ class SingupPage extends GetView<SingupController> {
                         child: Column(
                           children: [
                             FormLoginWidget("Nome Completo", Icons.person,
-                                nomeController, false),
+                                nomeController, false,Colors.white),
                             FormLoginWidget(
-                                "CPF", Icons.person, cpfController, false),
+                                "CPF", Icons.person, cpfController, false,Colors.white),
                             FormLoginWidget(
-                                "E-mail", Icons.person, emailController, false),
+                                "E-mail", Icons.person, emailController, false,Colors.white),
                             FormLoginWidget(
-                                "Senha", Icons.lock, passowrdController, true),
+                                "Senha", Icons.lock, passowrdController, true,Colors.white),
 
                           ],
                         ),

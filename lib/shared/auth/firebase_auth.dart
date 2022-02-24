@@ -28,12 +28,17 @@ class AuthenticationHelper {
     } on FirebaseAuthException catch (e) {
       return e.message;
     }
+  }Future resetPassword({required String email}) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email.replaceAll(' ', ''));
+      return null;
+    } on FirebaseAuthException catch (e) {
+      return e.message;
+    }
   }
 
   //SIGN OUT METHOD
   Future signOut() async {
     await _auth.signOut();
-
-    print('signout');
   }
 }

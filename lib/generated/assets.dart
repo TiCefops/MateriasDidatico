@@ -9,7 +9,9 @@ class Assets {
   static const String iconsAmorEnfer = 'assets/icons/amorEnfer.png';
   static const String iconsLaunchIcon = 'assets/icons/launch_icon.png';
   static const String imageBrasao = 'assets/image/brasao.png';
+  static const String imageBrasaoAzul = 'assets/image/brasaoAzul.png';
   static const String imageLogo = 'assets/image/logo.png';
+  static const String imageLogov2 = 'assets/image/logov2.png';
   static const String launcherIcLauncher = 'assets/icons/launcher/ic_launcher.png';
   static const String launcherIcLauncherAdaptiveBack = 'assets/icons/launcher/ic_launcher_adaptive_back.png';
   static const String launcherIcLauncherAdaptiveFore = 'assets/icons/launcher/ic_launcher_adaptive_fore.png';
