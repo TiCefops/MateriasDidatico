@@ -17,7 +17,7 @@ class LoginPage extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.blue,
+      backgroundColor: GetPlatform.isMobile?Colors.white:AppColors.blue,
       body: SingleChildScrollView(
         child: Container(
           decoration: GetPlatform.isMobile
@@ -37,7 +37,7 @@ class LoginPage extends GetView<LoginController> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SizedBox(
-                  height: Get.height * 0.08,
+                  height: Get.height * 0.03,
                 ),
                 Center(
                   child: SizedBox(
@@ -56,9 +56,10 @@ class LoginPage extends GetView<LoginController> {
                   ),
                 ),
                 Expanded(
-                    child: SizedBox(
-                  height: Get.height,
-                ))
+                  child: SizedBox(
+                    height: Get.height,
+                  ),
+                )
               ],
             );
           }),
@@ -69,9 +70,12 @@ class LoginPage extends GetView<LoginController> {
 
   Widget forMobile() {
     return Container(
-
+      constraints: const BoxConstraints(
+        maxWidth: 700,
+        minHeight: 400,
+      ),
       width: Get.width * 0.9,
-      height: Get.height * 0.79,
+
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(15)),
       child: Column(
@@ -96,22 +100,25 @@ class LoginPage extends GetView<LoginController> {
               "E-mail", Icons.person, emailController, false, AppColors.blue),
           FormLoginWidget(
               "Senha", Icons.lock, passowrdController, true, AppColors.blue),
-          Row(
-            children: [
-              Expanded(
-                  child: SizedBox(
-                width: Get.width,
-              )),
-              TextButton(
-                onPressed: () {
-                  Get.toNamed(Routes.PASSWORDRESET);
-                },
-                child: const Text(
-                  "Esqueci a senha",
-                  style: TextStyle(color: AppColors.blue),
+          Padding(
+            padding: EdgeInsets.zero,
+            child: Row(
+              children: [
+                Expanded(
+                    child: SizedBox(
+                  width: Get.width,
+                )),
+                TextButton(
+                  onPressed: () {
+                    Get.toNamed(Routes.PASSWORDRESET);
+                  },
+                  child: const Text(
+                    "Esqueci a senha",
+                    style: TextStyle(color: AppColors.blue),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Obx(
             () {

@@ -3,26 +3,34 @@ import 'package:cefops2/app/data/repository/user_data_info_repository.dart';
 import 'package:cefops2/app/routes/app_routes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:get/get.dart';
-
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 class PdfViewerControllerUi extends GetxController{
   final UserDataInfoRepository _repository = UserDataInfoRepository();
 
-  User? user=FirebaseAuth.instance.currentUser;
+ final User? user=FirebaseAuth.instance.currentUser;
+
 
   @override
-  void onInit() {
+  void onInit()async {
 
     if (user == null) {
       Get.toNamed(Routes.INITIAL);
     }
-    getUserInfo();
+   await getUserInfo();
+    await setDevice();
+
+
     super.onInit();
   }
 
 
   RxString userCpf="".obs;
   RxString userName = "".obs;
+  RxString userID = "".obs;
+  RxString userDiviceType="".obs;
   RxString password="O2!iGi%IL6H6Ob0yByjK".obs;
 
   Future<DocumentSnapshot> getUserInfo() async {
@@ -33,9 +41,41 @@ class PdfViewerControllerUi extends GetxController{
     var data = snapshot.data();
     UserInfoModel userInfoModel = UserInfoModel.fromJson(data);
     userName.value = userInfoModel.nome!;
+    userID.value = uid;
     userCpf.value = userInfoModel.cpf!;
     return snapshot;
   }
+
+
+
+
+  Future<void> disableScreenCapture() async {
+    //disable screenshots and record screen in current screen
+    await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+  }
+ setDevice(){
+
+   if  (GetPlatform.isLinux) {
+     userDiviceType.value = "Linux";
+   } else {
+     if (GetPlatform.isAndroid) {
+       userDiviceType.value = "Android";
+     } else if (GetPlatform.isIOS) {
+       userDiviceType.value = "IOS";
+     } else if (GetPlatform.isFuchsia) {
+       userDiviceType.value = "Fuchsia";
+     } else if(GetPlatform.isMobile) {
+       userDiviceType.value = "Mobile";
+     } else if (GetPlatform.isMacOS) {
+       userDiviceType.value = "MacOS";
+     } else if (GetPlatform.isWindows) {
+       userDiviceType.value = "Windows";
+     }else if (GetPlatform.isWeb) {
+       userDiviceType.value = "Web";
+     }
+   }
+
+ }
 
 
 }
