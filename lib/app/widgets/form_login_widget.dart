@@ -55,14 +55,20 @@ return Padding(
     validator: (String? value) {
       if (value == null || value.isEmpty) {
         return "O campo não pode ser vazio";
-      }if(label=="Repita sua Senha"){
+      }
+      if(label=="Repita sua Senha"){
         // if(){
         //   return "As senha não Conferem";
         //
         //
         // }
       }
-
+          if(label=="E-mail"){
+            if(!controllerT.text.isEmail){
+              return "E-mail inválido";
+            }
+            return null;
+          }
       return null;
     },
     maxLines: 1,
