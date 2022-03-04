@@ -1,16 +1,19 @@
+
 import 'package:cefops2/app/data/model/user_info_model.dart';
 import 'package:cefops2/app/data/repository/user_data_info_repository.dart';
 import 'package:cefops2/app/routes/app_routes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:get/get.dart';
-import 'dart:io' show Platform;
-import 'package:flutter/foundation.dart' show kIsWeb;
+
+
 class PdfViewerControllerUi extends GetxController{
   final UserDataInfoRepository _repository = UserDataInfoRepository();
-
  final User? user=FirebaseAuth.instance.currentUser;
+  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
 
 
   @override
@@ -22,7 +25,7 @@ class PdfViewerControllerUi extends GetxController{
    await getUserInfo();
     await setDevice();
 
-
+await analytics.setUserId(id: user!.uid);
     super.onInit();
   }
 
@@ -35,7 +38,6 @@ class PdfViewerControllerUi extends GetxController{
 
   Future<DocumentSnapshot> getUserInfo() async {
     String uid = user?.uid ?? "";
-
     DocumentSnapshot snapshot =
     await _repository.getUserInfo(uid);
     var data = snapshot.data();
@@ -46,6 +48,14 @@ class PdfViewerControllerUi extends GetxController{
     return snapshot;
   }
 
+  double setZoomInPc(){
+  if(GetPlatform.isMobile){
+    return 0.0;
+  }else{
+    return 1.2;
+  }
+
+  }
 
 
 
