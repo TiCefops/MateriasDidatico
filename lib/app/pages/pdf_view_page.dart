@@ -2,7 +2,6 @@ import 'package:firebase_performance/firebase_performance.dart';
 import 'package:cefops2/app/controller/pdf_view_controller.dart';
 import 'package:cefops2/shared/themes/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
@@ -81,6 +80,7 @@ class PdfViewPage extends GetView<PdfViewerControllerUi> {
                       trace.putAttribute('error', doc.error);
                       stopTrace();
                     },
+                    initialZoomLevel: controller.setZoomInPc(),
                   ),
                   Center(
                     child: RotationTransition(
