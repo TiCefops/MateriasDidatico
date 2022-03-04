@@ -13,6 +13,7 @@ class HomePopShowWidget {
 
   showDialog({required HomePopShowWidgetModel data}) {
     return Get.defaultDialog(
+      barrierDismissible: false,
       title: "Cursos Livres",
       content: Column(
         children: [
