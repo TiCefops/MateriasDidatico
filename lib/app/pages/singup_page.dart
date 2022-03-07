@@ -3,7 +3,7 @@ import 'package:cefops2/app/controller/singup_controller.dart';
 import 'package:cefops2/app/routes/app_routes.dart';
 import 'package:cefops2/app/widgets/form_login_widget.dart';
 import 'package:cefops2/shared/auth/firebase_auth.dart';
-import 'package:cefops2/shared/themes/theme.dart';
+import 'package:cefops2/shared/themes/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

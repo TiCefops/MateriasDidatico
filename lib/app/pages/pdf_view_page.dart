@@ -1,6 +1,6 @@
 import 'package:firebase_performance/firebase_performance.dart';
 import 'package:cefops2/app/controller/pdf_view_controller.dart';
-import 'package:cefops2/shared/themes/theme.dart';
+import 'package:cefops2/shared/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';

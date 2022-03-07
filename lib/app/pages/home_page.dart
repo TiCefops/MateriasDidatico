@@ -1,8 +1,7 @@
 import 'package:cefops2/app/controller/home_controller.dart';
-import 'package:cefops2/app/controller/user_info_controller.dart';
 import 'package:cefops2/app/routes/app_routes.dart';
-import 'package:cefops2/shared/themes/app_textstayle.dart';
-import 'package:cefops2/shared/themes/theme.dart';
+import 'package:cefops2/shared/themes/app_text_stayle.dart';
+import 'package:cefops2/shared/themes/app_colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -66,7 +65,7 @@ class HomePage extends GetView<HomeController> {
                   height: constraints.maxHeight * 0.09,
                   child: Text(
                     "Selecione Seu Curso",
-                    style: TextStyles.titleWithe,
+                    style: AppTextStyle.titleWithe,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -84,7 +83,7 @@ class HomePage extends GetView<HomeController> {
                               return Center(
                                 child: Text(
                                   "Aguardando Liberação",
-                                  style: TextStyles.titleRegularWhite,
+                                  style: AppTextStyle.titleRegularWhite,
                                 ),
                               );
                             } else {
@@ -159,7 +158,7 @@ class HomePage extends GetView<HomeController> {
         child: Center(
           child: Text(
             title,
-            style: TextStyles.titleRegular,
+            style: AppTextStyle.titleRegular,
             textAlign: TextAlign.center,
           ),
         ),

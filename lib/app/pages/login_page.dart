@@ -2,8 +2,8 @@ import 'package:cefops2/app/controller/login_controller.dart';
 import 'package:cefops2/app/routes/app_routes.dart';
 import 'package:cefops2/app/widgets/form_login_widget.dart';
 import 'package:cefops2/shared/auth/firebase_auth.dart';
-import 'package:cefops2/shared/themes/app_textstayle.dart';
-import 'package:cefops2/shared/themes/theme.dart';
+import 'package:cefops2/shared/themes/app_text_stayle.dart';
+import 'package:cefops2/shared/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -93,7 +93,7 @@ class LoginPage extends GetView<LoginController> {
           Center(
             child: Text(
               "Login",
-              style: TextStyles.titleRegularBold,
+              style: AppTextStyle.titleRegularBold,
             ),
           ),
           FormLoginWidget(
@@ -194,7 +194,7 @@ class LoginPage extends GetView<LoginController> {
           Center(
             child: Text(
               "Login",
-              style: TextStyles.titleRegularBold,
+              style: AppTextStyle.titleRegularBold,
             ),
           ),
           FormLoginWidget(

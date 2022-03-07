@@ -1,4 +1,4 @@
-
+///RECEBE DADOS DA API DO GOOLEAUTH E RETORNA MENSSAGEM EM PORTUGUÊS
 class AuthHanddler{
 
   String errorFilter(String error){

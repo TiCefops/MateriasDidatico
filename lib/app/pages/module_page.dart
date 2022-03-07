@@ -1,7 +1,7 @@
 import 'package:cefops2/app/controller/module_controller.dart';
 import 'package:cefops2/app/routes/app_routes.dart';
-import 'package:cefops2/shared/themes/app_textstayle.dart';
-import 'package:cefops2/shared/themes/theme.dart';
+import 'package:cefops2/shared/themes/app_text_stayle.dart';
+import 'package:cefops2/shared/themes/app_colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -57,7 +57,7 @@ class ModulePage extends GetView<ModuleController> {
                         child: Center(
                           child: Text(
                             "${curso["nome"]}",
-                            style: TextStyles.titleRegular,
+                            style: AppTextStyle.titleRegular,
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -115,7 +115,7 @@ class ModulePage extends GetView<ModuleController> {
                       ),
                       title: Text(
                         snapshot.data?.docs[index]["nome"],
-                        style: TextStyles.titleRegularWhite,
+                        style: AppTextStyle.titleRegularWhite,
                       ),
                       onTap:()=> Get.toNamed(Routes.SUBJECT,parameters: data),
 
