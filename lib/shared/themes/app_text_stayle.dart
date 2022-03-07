@@ -1,10 +1,10 @@
-import 'package:cefops2/shared/themes/theme.dart';
+import 'package:cefops2/shared/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 
 ///Estilização do app
-class TextStyles {
+class AppTextStyle {
   static final TextStyle titleHome = GoogleFonts.lexendDeca(
     fontSize: 40,
     fontWeight: FontWeight.w600,
