@@ -95,7 +95,7 @@ class LoginPage extends GetView<LoginController> {
           Center(
             child:TextRenderer(
               style: TextRendererStyle.header1,
-              child: Text( "EAS-Material Didático Login", style: AppTextStyle.titleRegularBold,
+              child: Text( "EAS-Material Didático", style: AppTextStyle.titleRegularBold,
               ),
             )
           ),
@@ -133,6 +133,7 @@ class LoginPage extends GetView<LoginController> {
                   : ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
+
                           controller.loadingPage.value = true;
                           await AuthenticationHelper()
                               .signIn(
@@ -199,7 +200,7 @@ class LoginPage extends GetView<LoginController> {
           Center(
             child:TextRenderer(
               text:"EAS Material Didático" ,
-            style: TextRendererStyle.paragraph,
+            style: TextRendererStyle.header1,
             child: Text( "EAS Material Didático ",
               style: AppTextStyle.titleRegularBold,
             ),

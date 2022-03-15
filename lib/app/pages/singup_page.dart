@@ -3,12 +3,12 @@ import 'package:cefops2/app/routes/app_routes.dart';
 import 'package:cefops2/app/widgets/form_login_widget.dart';
 import 'package:cefops2/shared/auth/firebase_auth.dart';
 import 'package:cefops2/shared/themes/app_colors.dart';
-import 'package:cefops2/shared/themes/app_text_stayle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SingupPage extends GetView<SingupController> {
   final TextEditingController emailController = TextEditingController();
@@ -63,7 +63,12 @@ class SingupPage extends GetView<SingupController> {
                         ),
                         Obx(() {
                           return Text("Curso: ${controller.courseName.value}",
-                              style: AppTextStyle.titleRegular);
+                              style: GoogleFonts.openSans(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w600,
+                                color:GetPlatform.isMobile? Colors.white: AppColors.blue,
+
+                              ));
                         }),
                         SizedBox(
                           width: widethForPC,

@@ -64,6 +64,12 @@ return Padding(
             }
             return null;
           }
+      if(label=="CPF"){
+        if(!controllerT.text.removeAllWhitespace.isCpf){
+          return "CPF inválido";
+        }
+        return null;
+      }
       return null;
     },
     maxLines: 1,

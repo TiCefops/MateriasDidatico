@@ -24,7 +24,7 @@ class SingupController extends GetxController {
   RxString cpf = "".obs;
   RxString email = "".obs;
   RxString errorMessagerForSnack = "".obs;
-  RxString courseName = "Caregando...".obs;
+  RxString courseName = "Carregando...".obs;
   RxString courseIdforSingup = "".obs;
   RxString moduleIdforSingup = "".obs;
   RxBool buttonEnabled = true.obs;
@@ -52,7 +52,10 @@ class SingupController extends GetxController {
       user?.sendEmailVerification();
     }
     String uid = user!.uid;
-    await repository.singUp(name.value, cpf.value, email.value, uid,
+    String cpf0= cpf.value.replaceAll(".", "");
+    String cpf1=cpf0.removeAllWhitespace.replaceAll("-", "");
+
+    await repository.singUp(name.value,cpf1, email.value, uid,
         courseIdforSingup.value, moduleIdforSingup.value);
   }
 }
