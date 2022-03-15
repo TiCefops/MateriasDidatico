@@ -19,7 +19,7 @@ class LoginPage extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: GetPlatform.isMobile?Colors.white:AppColors.blue,
+      backgroundColor: GetPlatform.isMobile ? Colors.white : AppColors.blue,
       body: SingleChildScrollView(
         child: Container(
           decoration: GetPlatform.isMobile
@@ -61,6 +61,17 @@ class LoginPage extends GetView<LoginController> {
                   child: SizedBox(
                     height: Get.height,
                   ),
+                ),
+                Obx(
+                 () {
+                    return Text(
+                      "Versão  Local: ${controller.appVersionLocal} | "
+                      "Versão do Servidor: ${controller.appVerionSever}",
+                      style: TextStyle(
+                          color:
+                              GetPlatform.isMobile ? Colors.black : Colors.white),
+                    );
+                  }
                 )
               ],
             );
@@ -77,7 +88,6 @@ class LoginPage extends GetView<LoginController> {
         minHeight: 400,
       ),
       width: Get.width * 0.9,
-
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(15)),
       child: Column(
@@ -93,12 +103,13 @@ class LoginPage extends GetView<LoginController> {
             ),
           ),
           Center(
-            child:TextRenderer(
-              style: TextRendererStyle.header1,
-              child: Text( "EAS-Material Didático", style: AppTextStyle.titleRegularBold,
-              ),
-            )
-          ),
+              child: TextRenderer(
+            style: TextRendererStyle.header1,
+            child: Text(
+              "EAS-Material Didático",
+              style: AppTextStyle.titleRegularBold,
+            ),
+          )),
           FormLoginWidget(
               "E-mail", Icons.person, emailController, false, AppColors.blue),
           FormLoginWidget(
@@ -133,7 +144,6 @@ class LoginPage extends GetView<LoginController> {
                   : ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-
                           controller.loadingPage.value = true;
                           await AuthenticationHelper()
                               .signIn(
@@ -196,16 +206,15 @@ class LoginPage extends GetView<LoginController> {
               "assets/image/logov2.png",
             ),
           ),
-
           Center(
-            child:TextRenderer(
-              text:"EAS Material Didático" ,
+              child: TextRenderer(
+            text: "EAS Material Didático",
             style: TextRendererStyle.header1,
-            child: Text( "EAS Material Didático ",
+            child: Text(
+              "EAS Material Didático ",
               style: AppTextStyle.titleRegularBold,
             ),
-          )
-          ),
+          )),
           FormLoginWidget(
               "E-mail", Icons.person, emailController, false, AppColors.blue),
           FormLoginWidget(
@@ -244,7 +253,6 @@ class LoginPage extends GetView<LoginController> {
                                   password: passowrdController.text)
                               .then((result) async {
                             if (result == null) {
-
                               controller.loadingPage.value = false;
                               Get.offAndToNamed(Routes.HOME);
                             } else {
