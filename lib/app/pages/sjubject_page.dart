@@ -76,6 +76,7 @@ class SubjectPage extends GetView<SubjectController> {
                                         ),
                                         onTap: () => Get.toNamed(Routes.PDFVIEW,
                                             parameters: data),
+
                                       ),
                                     );
                                   },

@@ -63,18 +63,22 @@ class HomePopShowWidget {
                 width:
                     GetPlatform.isMobile ? Get.width * 0.5 : Get.width * 0.175,
               ),
-              IconButton(
-                onPressed: () async {
-                 await controller.courSelect(
-                      courseName: "${data.curso}",
-                      status: "closed");
-                  controller.dispose();
-                  Get.back();
-                },
-                icon: const Icon(
-                  Icons.close,
-                  color: Colors.red,
-                ),
+              Obx(
+                () {
+                  return IconButton(
+                    onPressed: controller.showCloseButton.value? () async {
+                      await controller.courSelect(
+                          courseName: "${data.curso}",
+                          status: "closed");
+                       controller.dispose();
+                       Get.back();
+                    }:null,
+                    icon:  Icon(
+                      Icons.close,
+                      color:controller.showCloseButton.value? Colors.red:Colors.grey,
+                    ),
+                  );
+                }
               ),
             ],
           ),

@@ -6,6 +6,8 @@ import 'package:cefops2/shared/themes/app_text_stayle.dart';
 import 'package:cefops2/shared/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:seo_renderer/renderers/text_renderer/text_renderer_style.dart';
+import 'package:seo_renderer/renderers/text_renderer/text_renderer_vm.dart';
 
 class LoginPage extends GetView<LoginController> {
   final TextEditingController emailController = TextEditingController();
@@ -91,10 +93,11 @@ class LoginPage extends GetView<LoginController> {
             ),
           ),
           Center(
-            child: Text(
-              "Login",
-              style: AppTextStyle.titleRegularBold,
-            ),
+            child:TextRenderer(
+              style: TextRendererStyle.header1,
+              child: Text( "EAS-Material Didático Login", style: AppTextStyle.titleRegularBold,
+              ),
+            )
           ),
           FormLoginWidget(
               "E-mail", Icons.person, emailController, false, AppColors.blue),
@@ -137,6 +140,7 @@ class LoginPage extends GetView<LoginController> {
                                   password: passowrdController.text)
                               .then((result) async {
                             if (result == null) {
+                              controller.sendLoginEvent();
                               controller.loadingPage.value = false;
                               Get.offAndToNamed(Routes.HOME);
                             } else {
@@ -191,11 +195,15 @@ class LoginPage extends GetView<LoginController> {
               "assets/image/logov2.png",
             ),
           ),
+
           Center(
-            child: Text(
-              "Login",
+            child:TextRenderer(
+              text:"EAS Material Didático" ,
+            style: TextRendererStyle.paragraph,
+            child: Text( "EAS Material Didático ",
               style: AppTextStyle.titleRegularBold,
             ),
+          )
           ),
           FormLoginWidget(
               "E-mail", Icons.person, emailController, false, AppColors.blue),
@@ -235,6 +243,7 @@ class LoginPage extends GetView<LoginController> {
                                   password: passowrdController.text)
                               .then((result) async {
                             if (result == null) {
+
                               controller.loadingPage.value = false;
                               Get.offAndToNamed(Routes.HOME);
                             } else {

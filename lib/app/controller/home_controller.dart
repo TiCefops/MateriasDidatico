@@ -30,7 +30,9 @@ class HomeController extends GetxController {
 
   @override
   void onReady() {
-    _fetchSettingsRemote();
+    if (user != null) {
+      _fetchSettingsRemote();
+    }
     super.onReady();
   }
 

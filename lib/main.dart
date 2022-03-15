@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:cefops2/app/routes/app_routes.dart';
 import 'package:cefops2/app/routes/app_pages.dart';
+import 'package:seo_renderer/seo_renderer.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +28,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       navigatorObservers: [
         FirebaseAnalyticsObserver(analytics: analytics),
+        seoRouteObserver
       ],
       debugShowCheckedModeBanner: false,
       initialRoute: Routes.INITIAL,

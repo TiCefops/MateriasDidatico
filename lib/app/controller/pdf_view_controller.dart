@@ -52,7 +52,7 @@ await analytics.setUserId(id: user!.uid);
   if(GetPlatform.isMobile){
     return 0.0;
   }else{
-    return 1.2;
+    return 1.25;
   }
 
   }

@@ -51,10 +51,21 @@ class PdfViewPage extends GetView<PdfViewerControllerUi> {
                     semanticLabel: '+ zoom',
                   ),
                   onPressed: () {
-                    _pdfViewerController.zoomLevel = 3.0;
-                    _pdfViewerController.nextPage();
+                    _pdfViewerController.zoomLevel = 3;
                   },
                 )
+              : Container(),
+          GetPlatform.isWeb
+              ? IconButton(
+            icon: const Icon(
+              Icons.zoom_out,
+              color: Colors.white,
+              semanticLabel: '- zoom',
+            ),
+            onPressed: () {
+              _pdfViewerController.zoomLevel = 0;
+            },
+          )
               : Container(),
         ],
       ),
@@ -89,7 +100,7 @@ class PdfViewPage extends GetView<PdfViewerControllerUi> {
                         return Text(
                           controller.userCpf.value,
                           style: TextStyle(
-                            fontSize: Get.width * 0.10,
+                            fontSize:GetPlatform.isMobile? Get.width * 0.10: Get.width * 0.082,
                             color: Colors.black.withOpacity(0.2),
                           ),
                         );

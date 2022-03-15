@@ -56,11 +56,7 @@ return Padding(
         return "O campo não pode ser vazio";
       }
       if(label=="Repita sua Senha"){
-        // if(){
-        //   return "As senha não Conferem";
-        //
-        //
-        // }
+    
       }
           if(label=="E-mail"){
             if(!controllerT.text.removeAllWhitespace.isEmail){

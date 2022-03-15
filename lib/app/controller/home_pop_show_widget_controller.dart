@@ -6,13 +6,23 @@ class HomePopShowWidgetController extends GetxController {
 
 
 
+  @override
+  void onInit() {
+    super.onInit();
+    Future.delayed(const Duration(seconds: 10),(){
+      showCloseButton.value=true;
+    });
+  }
+
+RxBool showCloseButton=false.obs;
+
 
   Future<void> courSelect(
       {required String courseName, required String status}) async {
     await _analytics.logEvent(
         name:"Cliques em cursos livres",
       parameters: {
-        "content_type": "button",
+        "content_type": "anúncio",
         "item_name":courseName,
         "item_staus":status
       }
