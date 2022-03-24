@@ -26,8 +26,6 @@ class ModulePage extends GetView<ModuleController> {
 
         child: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
-
-
                 return Column(
                   children: [
                     Expanded(
@@ -97,6 +95,7 @@ class ModulePage extends GetView<ModuleController> {
             if (snapshot.hasData) {
 
               return ListView.separated(
+                
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (BuildContext context, int index) {
                   Map<String,String> data={

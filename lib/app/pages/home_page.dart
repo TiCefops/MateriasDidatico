@@ -35,7 +35,23 @@ class HomePage extends GetView<HomeController> {
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 SizedBox(
-                  height: constraints.maxHeight * 0.09,
+                  height: constraints.maxHeight * 0.01,
+                ),
+                Container(
+                  padding: const EdgeInsets.only(right: 12),
+                  alignment: Alignment.topRight,
+                  child: TextButton(
+                    onPressed: () {
+                      controller.logout();
+                    },
+                    child: const Text(
+                      "Sair",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: constraints.maxHeight * 0.08,
                 ),
                 Expanded(
                   child: SizedBox(

@@ -6,18 +6,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
+
 class ModuleController extends GetxController{
   DataItensRepository repository = DataItensRepository();
-  UserDataInfoRepository _userApp=UserDataInfoRepository();
-
+  final UserDataInfoRepository _userApp=UserDataInfoRepository();
   User? user = FirebaseAuth.instance.currentUser;
-
   @override
-  void onInit() {
+  Future<void> onInit() async {
     if (user == null) {
-      Get.toNamed(Routes.INITIAL);
+
+        Get.offAndToNamed(Routes.INITIAL);
+
+
     }
-    _userApp.getUserInfo(user!.uid);
+    _userApp.getUserInfo(user?.uid??"");
     super.onInit();
   }
 

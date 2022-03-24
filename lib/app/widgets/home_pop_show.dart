@@ -3,7 +3,7 @@ import 'package:cefops2/app/data/model/home_pop_show_widget_model.dart';
 import 'package:cefops2/shared/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'dart:html' as html;
+import 'package:url_launcher/url_launcher.dart';
 
 
 
@@ -35,7 +35,7 @@ class HomePopShowWidget {
                    await controller.courSelect(
                         courseName: "${data.curso}",
                         status: "open");
-                    html.window.open("${data.paginaMatricula}","_blank");
+                    launch("${data.paginaMatricula}");
                     controller.dispose();
                     Get.back();
 

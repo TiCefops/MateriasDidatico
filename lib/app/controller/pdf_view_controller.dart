@@ -9,6 +9,7 @@ import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:get/get.dart';
 
 
+
 class PdfViewerControllerUi extends GetxController{
   final UserDataInfoRepository _repository = UserDataInfoRepository();
  final User? user=FirebaseAuth.instance.currentUser;
@@ -20,7 +21,9 @@ class PdfViewerControllerUi extends GetxController{
   void onInit()async {
 
     if (user == null) {
-      Get.toNamed(Routes.INITIAL);
+
+        Get.offAndToNamed(Routes.INITIAL);
+
     }
    await getUserInfo();
     await setDevice();
@@ -37,7 +40,8 @@ await analytics.setUserId(id: user!.uid);
   RxString password="O2!iGi%IL6H6Ob0yByjK".obs;
 
   Future<DocumentSnapshot> getUserInfo() async {
-    String uid = user?.uid ?? "";
+    User? user = FirebaseAuth.instance.currentUser;
+    String uid=user?.uid??"";
     DocumentSnapshot snapshot =
     await _repository.getUserInfo(uid);
     var data = snapshot.data();

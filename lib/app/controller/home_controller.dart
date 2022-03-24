@@ -1,5 +1,6 @@
 import 'dart:convert';
-
+import 'package:cefops2/shared/auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cefops2/app/data/model/home_pop_show_widget_model.dart';
 import 'package:cefops2/app/data/repository/data_itens_repository.dart';
 import 'package:cefops2/app/data/repository/user_data_info_repository.dart';
@@ -19,9 +20,11 @@ class HomeController extends GetxController {
   final FirebaseRemoteConfig firebaseRmConfig = FirebaseRemoteConfig.instance;
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     if (user == null) {
-      Get.toNamed(Routes.INITIAL);
+
+        Get.offAndToNamed(Routes.INITIAL);
+
     }
     getCourseID();
     _analytics.setUserId(id: user?.uid);
@@ -40,8 +43,8 @@ class HomeController extends GetxController {
   RxBool showAdds = false.obs;
 
   Future<String> getCourseID() async {
-    String uid = user?.uid ?? "";
-
+    User? user = FirebaseAuth.instance.currentUser;
+    String uid=user?.uid??"";
     DocumentSnapshot data = await _dataUserInfo.getUserInfo(uid);
     List<dynamic> courseList = data.get("cursos");
     courseList.forEach((element) {
@@ -53,6 +56,15 @@ class HomeController extends GetxController {
 
   Future<QuerySnapshot> getCourses() async {
     return _repository.getCourses();
+  }
+  Future<void> logout() async {
+    AuthenticationHelper().signOut().then((value) async {
+      final prefs = await SharedPreferences.getInstance();
+      await  prefs.remove("data001");
+      Get.offAndToNamed(Routes.INITIAL);
+      }
+
+    );
   }
 
   Future<void> _fetchSettingsRemote() async {

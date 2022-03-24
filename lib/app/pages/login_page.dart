@@ -1,7 +1,6 @@
 import 'package:cefops2/app/controller/login_controller.dart';
 import 'package:cefops2/app/routes/app_routes.dart';
 import 'package:cefops2/app/widgets/form_login_widget.dart';
-import 'package:cefops2/shared/auth/firebase_auth.dart';
 import 'package:cefops2/shared/themes/app_text_stayle.dart';
 import 'package:cefops2/shared/themes/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -62,17 +61,15 @@ class LoginPage extends GetView<LoginController> {
                     height: Get.height,
                   ),
                 ),
-                Obx(
-                 () {
-                    return Text(
-                      "Versão  Local: ${controller.appVersionLocal} | "
-                      "Versão do Servidor: ${controller.appVerionSever}",
-                      style: TextStyle(
-                          color:
-                              GetPlatform.isMobile ? Colors.black : Colors.white),
-                    );
-                  }
-                )
+                Obx(() {
+                  return Text(
+                    "Versão  Local: ${controller.appVersionLocal} | "
+                    "Versão do Servidor: ${controller.appVerionSever}",
+                    style: TextStyle(
+                        color:
+                            GetPlatform.isMobile ? Colors.black : Colors.white),
+                  );
+                })
               ],
             );
           }),
@@ -145,23 +142,8 @@ class LoginPage extends GetView<LoginController> {
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           controller.loadingPage.value = true;
-                          await AuthenticationHelper()
-                              .signIn(
-                                  email: emailController.text,
-                                  password: passowrdController.text)
-                              .then((result) async {
-                            if (result == null) {
-                              controller.sendLoginEvent();
-                              controller.loadingPage.value = false;
-                              Get.offAndToNamed(Routes.HOME);
-                            } else {
-                              controller.loadingPage.value = false;
-                              controller.setErrorMessagerForSnack(result);
-                              Get.snackbar("Falha na Autenticação",
-                                  controller.errorMessagerForSnack.value);
-                            }
-                          });
-
+                          await controller.login(
+                              emailController.text, passowrdController.text);
                           controller.loadingPage.value = false;
                         }
                       },
@@ -247,21 +229,7 @@ class LoginPage extends GetView<LoginController> {
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           controller.loadingPage.value = true;
-                          await AuthenticationHelper()
-                              .signIn(
-                                  email: emailController.text,
-                                  password: passowrdController.text)
-                              .then((result) async {
-                            if (result == null) {
-                              controller.loadingPage.value = false;
-                              Get.offAndToNamed(Routes.HOME);
-                            } else {
-                              controller.loadingPage.value = false;
-                              controller.setErrorMessagerForSnack(result);
-                              Get.snackbar("Falha na Autenticação",
-                                  controller.errorMessagerForSnack.value);
-                            }
-                          });
+                          await controller.login(emailController.text, passowrdController.text);
 
                           controller.loadingPage.value = false;
                         }

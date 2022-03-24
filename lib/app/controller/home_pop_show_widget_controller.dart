@@ -16,7 +16,7 @@ class HomePopShowWidgetController extends GetxController {
 
 RxBool showCloseButton=false.obs;
 
-
+///Envia os dados do click para o google analytics
   Future<void> courSelect(
       {required String courseName, required String status}) async {
     await _analytics.logEvent(
